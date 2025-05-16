@@ -5,6 +5,7 @@
 #include <QKeyEvent>
 #include <QTimerEvent>
 #include <QList>
+#include <QRect>
 #include "obstacle.h"  // Füge die Hindernis-Klasse hinzu
 
 class GameWindow : public QWidget
@@ -22,6 +23,7 @@ protected:
     void timerEvent       (QTimerEvent *event) override;
 
 private:
+
     int  viereckX;              // X-Position des Vierecks
     int  viereckY;              // Y-Position des Vierecks
     int  viereckH;              // Höhe des Vierecks
@@ -32,6 +34,15 @@ private:
     bool onGround;              // Überprüft, ob das Viereck auf dem Boden ist
 
     QList<Obstacle> obstacles;  // Liste der Hindernisse, jetzt Obstacle-Objekte
+    QPixmap playerSprite;  // Sprite für den Spieler
+    bool gamePaused;  // Deklariere die gamePaused-Variable hier
+    // 🆕 Funktion für pixelgenaue Kollisionserkennung
+    bool checkCollisionPixelBased(const QRect &playerRect, const Obstacle &obstacle);
+    void handleCollision(const QRect &playerRect, const Obstacle &obstacle);
+    QRect plattform;
+    QElapsedTimer spielTimer;
+    QList<QRect> plattformen;
+
 };
 
 #endif // GAMEWINDOW_H
